@@ -34,33 +34,56 @@ random_values(obj)
 dist1=[]
 for x in obj:
     dist1.append(abs(int(samples[0].gender)-int(x.gender))+abs(int(samples[0].age)-int(x.age))+abs(int(samples[0].income)-int(x.income))+abs(int(samples[0].score)-int(x.score)))
-print(dist1)
 
 dist2=[]
 for y in obj:
     dist2.append(abs(int(samples[1].gender)-int(y.gender))+abs(int(samples[1].age)-int(y.age))+abs(int(samples[1].income)-int(y.income))+abs(int(samples[1].score)-int(y.score)))
-print(dist2)
 for i in range(len(dist1)):
     if dist1[i]<=dist2[i]:
                obj[i].clusterno=1
     elif dist1[i]>dist2[i]:
                obj[i].clusterno=2
+print("CLUSTER 1:")
+for x in obj:
+    if x.clusterno==1:
+        print (x.id,x.gender,x.age,x.income,x.score)
+print("CLUSTER 2:")
+for y in obj:
+    if y.clusterno==2:
+        print (y.id,y.gender,y.age,y.income,y.score)
+
+gsum=0
+gsum1=0
 arsum=0
 arsum1=0
+isum=0
+isum1=0
+scsum=0
+scsum1=0
 j=0
 i=0
 for  y in obj:
     if y.clusterno==1:
-        print ("cluster 1",y.age)
+        gsum+=int(y.gender)
         arsum+=int(y.age)
+        isum+=int(y.income)
+        scsum+=int(y.score)
         i+=1
     elif y.clusterno==2:
-        print ("cluster 2",y.age)
+        gsum1+=int(y.gender)
         arsum1+=int(y.age)
+        isum1+=int(y.income)
+        scsum1+=int(y.score)
         j+=1
+gsum=gsum/i
+gsum1=gsum1/j
 arsum=arsum/i
 arsum1=arsum1/j
-print ("cluster 1",arsum)
-print ("cluster 2",arsum1)   
+isum=isum/i
+isum1=isum1/j
+scsum=scsum/i
+scsum1=scsum1/j
+print ("mean of cluster 1:",gsum,arsum,isum,scsum)
+print ("mean of cluster 2:",gsum1,arsum1,isum1,scsum1)   
 
                
