@@ -1,19 +1,25 @@
 #import necessary modules
 import csv
 import random
+
+#creating a class for customers
+
 class mall:
     def __init__(self,id,gender,age,income,score):
+        #creating an attribute for each column in the csv that corresponds to a customer
         self.id=id
         self.gender=gender
         self.age=age
         self.income=income
         self.score=score
         self.clusterno=0
+#accessing the csv file 
 with open('./Mall_Customers.csv','rt')as f:
   data = csv.reader(f)
   d=list(data)
   s= len(d)
-  obj=[]
+  obj=[]    #a list for storing objects
+  #creating objects for the number of customers
   for i in range(1,s):  
       obj.append(mall(d[i][0],d[i][1],d[i][2],d[i][3],d[i][4]))
 for j in obj:
@@ -24,13 +30,14 @@ for j in obj:
         j.gender=0
     print (j.id,j.gender,j.age,j.income,j.score)
 samples=[]
+
 def random_values(obj):
     global samples
     samples=random.choices(obj,k=2)
     print ("Centroid 1 :- ",samples[0].id,samples[0].gender,samples[0].age,samples[0].income,samples[0].score,"Centroid 2:- ",samples[1].id,samples[1].gender,samples[1].age,samples[1].income,samples[1].score)
 
 random_values(obj)
-    
+#calculating distance from each cluster
 dist1=[]
 for x in obj:
     dist1.append(abs(int(samples[0].gender)-int(x.gender))+abs(int(samples[0].age)-int(x.age))+abs(int(samples[0].income)-int(x.income))+abs(int(samples[0].score)-int(x.score)))
